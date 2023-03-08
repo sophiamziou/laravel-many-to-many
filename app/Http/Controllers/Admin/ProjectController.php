@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
@@ -31,7 +32,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $techs = Technology::all();
+        return view('admin.projects.create', compact('types', 'techs'));
     }
 
     /**
@@ -45,7 +47,8 @@ class ProjectController extends Controller
         $new = $request->validated();
         $slug = Project::generateSlug($request->title);
         $new['slug'] = $slug;
-        Project::create($new);
+        $project = Project::create($new);
+        $project->technology()->attach($request->technology);
         return redirect()->route('admin.projects.index');
     }
 
@@ -69,7 +72,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $techs = Technology::all();
+        return view('admin.projects.edit', compact('project', 'types', 'techs'));
     }
 
     /**
@@ -85,6 +89,7 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($request->title);
         $new['slug'] = $slug;
         $project->update($new);
+        $project->technology()->attach($request->technologies);
         return redirect()->route('admin.projects.index');
     }
 
