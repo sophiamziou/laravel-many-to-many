@@ -28,7 +28,12 @@
                                 <td>{{ $project['title'] }}</td>
                                 <td>{{ $project['content'] }}</td>
                                 <td>{{ $project['type'] ? $project['type']['name'] : 'nessun tipo' }}</td>
-                                <td>{{ $project['technologies'] ? $project['technolgies']['name'] : 'nessuna tecnologia' }}
+                                <td>
+                                    @forelse ($project['technologies'] as $tech)
+                                        {{ $tech['name'] }}
+                                    @empty
+                                        <div>nessuna tech</div>
+                                    @endforelse
                                 </td>
                                 <td>{{ $project['slug'] }}</td>
                                 <td>

@@ -48,7 +48,9 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($request->title);
         $new['slug'] = $slug;
         $project = Project::create($new);
-        $project->technology()->attach($request->technology);
+        if ($request->has('techs')) {
+            $project->technologies()->attach($request->techs);
+        }
         return redirect()->route('admin.projects.index');
     }
 
@@ -89,7 +91,7 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($request->title);
         $new['slug'] = $slug;
         $project->update($new);
-        $project->technology()->attach($request->technologies);
+        $project->technology()->synch($request->technologies);
         return redirect()->route('admin.projects.index');
     }
 

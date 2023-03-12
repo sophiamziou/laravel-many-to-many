@@ -26,12 +26,15 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="" class="form-label">Seleziona type</label>
-                <select name="tech_id" id="tech_id">
-                    @foreach ($techs as $item)
-                        <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
-                    @endforeach
-                </select>
+                <label for="" class="form-label">Seleziona technology</label>
+                @foreach ($techs as $item)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{ $item['id'] }}" name="techs[]">
+                        <label class="form-check-label">
+                            {{ $item['name'] }}
+                        </label>
+                    </div>
+                @endforeach
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Crea un nuovo progetto</button>
