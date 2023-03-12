@@ -91,7 +91,7 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($request->title);
         $new['slug'] = $slug;
         $project->update($new);
-        $project->technology()->synch($request->technologies);
+        $project->technologies()->sync($request->techs);
         return redirect()->route('admin.projects.index');
     }
 
