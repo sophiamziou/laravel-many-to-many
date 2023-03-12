@@ -32,7 +32,7 @@
             <div class="mb-3">
                 <label for="" class="form-label">Seleziona technology</label>
                 @foreach ($techs as $item)
-                    <div class="form-check @error('tags') is-invalid @enderror">
+                    <div class="form-check @error('technologies') is-invalid @enderror">
                         @if ($errors->any())
                             <input class="form-check-input" type="checkbox" value="{{ $item['id'] }}" name="techs[]"
                                 {{ in_array($item['id'], old('techs', [])) ? 'checked' : '' }}>
