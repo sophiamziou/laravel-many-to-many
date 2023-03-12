@@ -30,11 +30,13 @@
                                 <td>{{ $project['type'] ? $project['type']['name'] : 'nessun tipo' }}</td>
                                 <td>
                                     @forelse ($project['technologies'] as $tech)
-                                        {{ $tech['name'] }}
+                                        {{ $loop->first ? '' : ',' }}
+                                        <span>{{ $tech['name'] }}</span>
                                     @empty
                                         <div>nessuna tech</div>
                                     @endforelse
                                 </td>
+                                </p>
                                 <td>{{ $project['slug'] }}</td>
                                 <td>
                                     <div class="d-flex gap-3">
